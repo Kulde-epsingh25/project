@@ -1,0 +1,26 @@
+# Python & Environments
+.venv/
+.venv311/
+env/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data & Large Files
+data/raw/
+data/processed/
+outputs/
+models/saved/
+*.csv
+*.parquet
+*.pbix
+*.zip
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

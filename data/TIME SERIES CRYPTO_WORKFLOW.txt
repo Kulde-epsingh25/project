@@ -1,0 +1,15 @@
+##TIME SERIES CRYPTOCURRENCY MARKET ANALYSIS
+#WORKFLOW
+1.Understand the objective and goal of the project
+2.Data Collection(OHLCV+sentiment)
+3.Data Preprocessing
+4.EDA
+5.Forecasting models:
+  a. ARIMA
+  b. SARIMA
+  c. PROPHET
+  d. LSTM
+5.Model Evaluation Techniques
+6.Visualizations and insights
+7.Dashboard deployment(Streamlit/Flask dashboards or Python visualizations using matplotlib, plotly, seaborn, Power BI/ Tableau dashboards) 
+8.Deploy the project(using flask/FAST API/Streamlit/Django)

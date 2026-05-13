@@ -1,0 +1,10 @@
+Page 1: Overview/Executive KPIs
+Page 2: Price Explorer and Candlesticks
+Page 3: Forecast & Uncertainty
+Page 4: Sentiment Analysis and News Impact Visualizations
+Page 5: Volatility and Risk Visuals 
+Page 6: Indicators Dashboard
+Page 7: Correlations & Market Structure
+Page 8: Feature Importance & Explainability 
+Page 9: Strategy Backtest & Model Performance
+Page 10:Interactive Explorer, User Controls & Export

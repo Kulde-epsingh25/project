@@ -1,0 +1,24 @@
+PROPHET:
+y(t)=g(t)+s(t)+h(t)+error term
+g(t)= Trend function(non-periodic changes)
+s(t)= Seasonality(periodic changes)
+h(t)= Holiday effects
+
+ARIMA(Auto-Regressive Integrated Moving Average):
+p=number of lag observation(AR terms)
+d=degree of differencing
+q=size of moving average window
+
+SARIMA(Seasonal ARIMA):
+p,d,q     20:50 29-08-2025
+p,d,q,s
+
+LSTM(RNN):
+The clouds are in the ---? RNN
+sky
+I am native to India.... I can speak fluent ----? RNN XXX
+Hindi
+LSTM
+forget: decides what to discard
+input: decides what is new info to store
+output: controls output from the cell state

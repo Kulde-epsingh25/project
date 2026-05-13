@@ -1,0 +1,95 @@
+-- Core KPIs
+Latest Close =
+MAX(master_btc_daily[Close])
+
+Latest Volatility 30 =
+MAX(risk_daily[volatility_30])
+
+Max Drawdown =
+MIN(risk_daily[drawdown])
+
+Best Model =
+VAR T = TOPN(1, model_metrics, model_metrics[rmse], ASC)
+RETURN MAXX(T, model_metrics[model])
+
+Best RMSE =
+MIN(model_metrics[rmse])
+
+-- Forecast Utilities
+Selected Model Forecast =
+VAR M = SELECTEDVALUE(ModelSelector[Model], "ENSEMBLE_WEIGHTED")
+RETURN
+SWITCH(
+    M,
+    "NAIVE", AVERAGE(forecast_comparison[NAIVE]),
+    "ARIMA", AVERAGE(forecast_comparison[ARIMA]),
+    "SARIMA", AVERAGE(forecast_comparison[SARIMA]),
+    "Prophet", AVERAGE(forecast_comparison[Prophet]),
+    "ENSEMBLE_WEIGHTED", AVERAGE(forecast_comparison[ENSEMBLE_WEIGHTED]),
+    AVERAGE(forecast_comparison[actual])
+)
+
+Forecast Error Abs =
+ABS(AVERAGE(forecast_comparison[actual]) - [Selected Model Forecast])
+
+Forecast Error Pct =
+DIVIDE([Forecast Error Abs], AVERAGE(forecast_comparison[actual]))
+
+-- Sentiment
+Average Sentiment =
+AVERAGE(sentiment_daily[sentiment_score])
+
+Total Articles =
+SUM(sentiment_daily[article_count])
+
+Sentiment Positive Share =
+DIVIDE(
+    CALCULATE(COUNTROWS(sentiment_event_impact), sentiment_event_impact[sentiment_score] > 0),
+    COUNTROWS(sentiment_event_impact)
+)
+
+-- Risk
+Average Daily Return =
+AVERAGE(returns_daily_change[returns])
+
+Return Std Annualized =
+STDEV.P(returns_daily_change[returns]) * SQRT(365)
+
+Downside Risk Annualized =
+VAR T = FILTER(returns_daily_change, returns_daily_change[returns] < 0)
+RETURN STDEVX.P(T, returns_daily_change[returns]) * SQRT(365)
+
+-- Strategy
+Strategy Total Return =
+VAR EqStart = MIN(strategy_equity_curves[equity_ret_buy_hold])
+VAR EqEnd = MAX(strategy_equity_curves[equity_ret_buy_hold])
+RETURN DIVIDE(EqEnd - EqStart, EqStart)
+
+Best Strategy =
+VAR T = TOPN(1, strategy_performance_summary, strategy_performance_summary[total_return], DESC)
+RETURN MAXX(T, strategy_performance_summary[strategy])
+
+Best Strategy Return =
+MAX(strategy_performance_summary[total_return])
+
+-- Market Structure
+BTC Dominance Pct =
+VAR BTC =
+    CALCULATE(
+        SUM(market_topcoins_latest[market_cap]),
+        FILTER(market_topcoins_latest, market_topcoins_latest[symbol] = "btc")
+    )
+VAR TOT = SUM(market_topcoins_latest[market_cap])
+RETURN DIVIDE(BTC, TOT)
+
+Top Coin by Market Cap =
+VAR T = TOPN(1, market_topcoins_latest, market_topcoins_latest[market_cap], DESC)
+RETURN MAXX(T, market_topcoins_latest[name])
+
+-- Regime
+Current Regime =
+VAR T = TOPN(1, regime_timeline, regime_timeline[Date], DESC)
+RETURN MAXX(T, regime_timeline[regime])
+
+Regime Count =
+COUNTROWS(regime_timeline)
