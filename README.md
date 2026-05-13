@@ -58,7 +58,7 @@ graph TD
 Clone the repository and initialize your workspace:
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/crypto-forecasting.git
+git clone https://github.com/Kulde-epsingh25/project.git
 cd crypto-forecasting
 
 # Setup Virtual Environment
